@@ -13,7 +13,7 @@ mod tests {
 
     #[test]
     fn string_size() {
-        assert_eq!(size_of::<String>(), todo!());
+        assert_eq!(size_of::<String>(), std::mem::size_of::<usize>() * 3); //24 bytes
     }
 
     #[test]
@@ -23,6 +23,9 @@ mod tests {
         // but, in general, the memory layout of structs is a more complex topic.
         // If you're curious, check out the "Type layout" section of The Rust Reference
         // https://doc.rust-lang.org/reference/type-layout.html for more information.
-        assert_eq!(size_of::<Ticket>(), todo!());
+        assert_eq!(size_of::<Ticket>(), std::mem::size_of::<usize>() * 3       // title
+                                      + std::mem::size_of::<usize>() * 3    // description
+                                      + std::mem::size_of::<usize>() * 3      // status
+        ); // 72 bytes
     }
 }
