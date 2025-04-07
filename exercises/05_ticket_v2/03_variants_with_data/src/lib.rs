@@ -7,6 +7,7 @@ struct Ticket {
     title: String,
     description: String,
     status: Status,
+    assigned_to: Option<String>,
 }
 
 #[derive(Debug, PartialEq)]
@@ -35,10 +36,14 @@ impl Ticket {
             title,
             description,
             status,
+            assigned_to: None,
         }
     }
     pub fn assigned_to(&self) -> &str {
-        todo!()
+        match &self.status {
+            Status::InProgress { assigned_to } => assigned_to,
+            _ => panic!("Only `In-Progress` tickets can be assigned to someone"),
+        }
     }
 }
 
